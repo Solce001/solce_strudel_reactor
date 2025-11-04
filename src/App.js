@@ -77,7 +77,15 @@ export default function StrudelDemo() {
         globalEditor.stop()
     }
 
-   const [songText, setSongText] = useState(stranger_tune)
+   const [songText, setSongText] = useState(stranger_tune) //useState react hook to set the default state of songText to stranger_tune and function to update it 
+
+    const handleProc = () => {
+        //TODO
+    }
+
+    const handleProcPlay = () => {
+        //TODO
+    }
 
 useEffect(() => {
 
@@ -132,7 +140,7 @@ return (
                     </div>
                     <div className="col-md-4">
                         <nav>
-                            <ProcButtons />
+                            <ProcButtons onProc={handleProc} onProcPlay={handleProcPlay}/>
                             <br />
                             <PlayButtons onPlay={handlePlay} onStop={handleStop}/>
                         </nav>
