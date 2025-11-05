@@ -26,7 +26,7 @@ export default function StrudelDemo() {
     const hasRun = useRef(false);
 
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm, pattern: pattern, bass: bass}); // passes song text and user input props to Preprocess component
+        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm, pattern: pattern, bass: bass, muteList: muteList}); // passes song text and user input props to Preprocess component
         globalEditor.setCode(outputText); // updates REPL with processed song text
         globalEditor.evaluate() // runs the song
     }
@@ -35,6 +35,14 @@ export default function StrudelDemo() {
         globalEditor.stop() // stops the REPL's currently playing song
     }
 
+    const handleMuteChange = (e) => {
+    const instrument = e.target.value;
+    setMuteList(prev => prev.includes(instrument)
+        ? prev.filter(i => i !== instrument)
+        : [...prev, instrument] 
+    ) };
+
+    // React useState hooks
     const [procText, setProcText] = useState(stranger_tune) // react hook to set the state of processed text
 
     const [volume, setVolume] = useState(1); // react hook to set the volume state
@@ -45,13 +53,15 @@ export default function StrudelDemo() {
 
     const [bass, setBass] = useState("0") // react hook setting the bass
 
+    const [muteList, setMuteList] = useState([]); // react hook creating an empty list to store references to instruments to be muted in preprocessing
+
     const [state, setState] = useState("stop"); // react hook describing whether the song is currently playing or not
 
     useEffect(() => { // useEffect hook to run at render and when state hook changes
         if (state === "play") {
             handlePlay(); // when state changes to play, run handlePlay function to preprocess and run the song
         }
-    }, [volume, cpm, pattern, bass]) // dependency array specifies useEffect should run when volume or cpm are changed
+    }, [volume, cpm, pattern, bass, muteList]) // dependency array specifies useEffect should run when volume or cpm are changed
 
 
 useEffect(() => {
@@ -134,7 +144,8 @@ return (
                         <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
                         cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)}
                         pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
-                        bass={bass} onBassChange={(e) => setBass(e.target.value)} />
+                        bass={bass} onBassChange={(e) => setBass(e.target.value)}
+                        muteList={muteList} onMuteChange={(handleMuteChange)} />
                     </div>
 
                     {/* Strudel REPL */}
