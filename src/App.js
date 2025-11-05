@@ -72,7 +72,7 @@ export default function StrudelDemo() {
 
     const handlePlay = () => {
 
-        let outputText = Preprocess({ inputText: procText, volume: volume });
+        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm });
         globalEditor.setCode(outputText);
         globalEditor.evaluate()
     }
@@ -84,6 +84,8 @@ export default function StrudelDemo() {
     const [procText, setProcText] = useState(stranger_tune)
 
     const [volume, setVolume] = useState(1);
+    
+    const [cpm, setCpm] = useState(120);
 
     const [state, setState] = useState("stop");
 
@@ -92,7 +94,7 @@ export default function StrudelDemo() {
         if (state === "play") {
             handlePlay();
         }
-    }, [volume])
+    }, [volume, cpm])
 
     /*
     const [songText, setSongText] = useState(stranger_tune) //useState react hook to set the default state of songText to stranger_tune and function to update it 
@@ -168,7 +170,7 @@ return (
                         <div id="output" />
                     </div>
                     <div className="col-md-4">
-                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} />
+                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)} />
                     </div>
                 </div>
             </div>
