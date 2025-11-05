@@ -11,10 +11,8 @@ import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import DJControls from './components/DJControls';
 import PlayButtons from './components/PlayButtons';
-import ProcButtons from './components/ProcButtons';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
-import { Navbar } from './components/Navbar';
 
 let globalEditor = null;
 
@@ -22,93 +20,35 @@ const handleD3Data = (event) => {
     console.log(event.detail);
 };
 
-// export function SetupButtons() {
-
-//     document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-//     document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-//     document.getElementById('process').addEventListener('click', () => {
-//         Proc()
-//     }
-//     )
-//     document.getElementById('process_play').addEventListener('click', () => {
-//         if (globalEditor != null) {
-//             Proc()
-//             globalEditor.evaluate()
-//         }
-//     }
-//     )
-// }
-
-
-
-// export function ProcAndPlay() {
-//     if (globalEditor != null && globalEditor.repl.state.started == true) {
-//         console.log(globalEditor)
-//         Proc()
-//         globalEditor.evaluate();
-//     }
-// }
-
-// export function Proc() {
-
-//     let proc_text = document.getElementById('proc').value
-//     let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
-//     ProcessText(proc_text);
-//     globalEditor.setCode(proc_text_replaced)
-// }
-
-// export function ProcessText(match, ...args) {
-
-//     let replace = ""
-//     // if (document.getElementById('flexRadioDefault2').checked) {
-//     //     replace = "_"
-//     // }
-
-//     return replace
-// }
 
 export default function StrudelDemo() {
 
     const hasRun = useRef(false);
 
     const handlePlay = () => {
-
-        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm });
-        globalEditor.setCode(outputText);
-        globalEditor.evaluate()
+        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm }); // passes song text and user input props to Preprocess component
+        globalEditor.setCode(outputText); // updates REPL with processed song text
+        globalEditor.evaluate() // runs the song
     }
 
     const handleStop = () => {
-        globalEditor.stop()
+        globalEditor.stop() // stops the REPL's currently playing song
     }
 
-    const [procText, setProcText] = useState(stranger_tune)
+    const [procText, setProcText] = useState(stranger_tune) // react hook to set the state of processed text
 
-    const [volume, setVolume] = useState(1);
+    const [volume, setVolume] = useState(1); // react hook to set the volume state
     
-    const [cpm, setCpm] = useState(120);
+    const [cpm, setCpm] = useState(120); // react hook defining the CPM
 
-    const [state, setState] = useState("stop");
+    const [state, setState] = useState("stop"); // react hook describing whether the song is currently playing or not
 
-    useEffect(() => {
-
+    useEffect(() => { // useEffect hook to run at render and when state hook changes
         if (state === "play") {
-            handlePlay();
+            handlePlay(); // when state changes to play, run handlePlay function to preprocess and run the song
         }
-    }, [volume, cpm])
+    }, [volume, cpm]) // dependency array specifies useEffect should run when volume or cpm are changed
 
-    /*
-    const [songText, setSongText] = useState(stranger_tune) //useState react hook to set the default state of songText to stranger_tune and function to update it 
-
-    const handleProc = () => {
-        //TODO
-    }
-
-    const handleProcPlay = () => {
-        //TODO
-    }
-        
-    */
 
 useEffect(() => {
 
@@ -143,16 +83,18 @@ useEffect(() => {
                 },
             });
             
-        document.getElementById('proc').value = procText
-        globalEditor.setCode(procText);
+        document.getElementById('proc').value = procText // gets the song in the text box and stores the value
+        globalEditor.setCode(procText); // runs initial text in procText when app is first rendered
     }
-}, [procText]);
+}, [procText]); // dependency array specifies useEffect should run when procText is changed
 
 
 return (
     <>
     <div>  
         <main>
+
+            {/* header bar */}
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
                     <a className="navbar-brand" >Strudel Demo</a>
@@ -168,30 +110,39 @@ return (
                     </div>
                 </div>
             </nav>
+
+            {/* heading */}
             <div className="row text-center mt-4 mb-2">
                 <h2>Strudel Demo</h2>
             </div>
+
             <div className="container-fluid ">
+                {/* play/pause button */}
                 <div className="row">
                     <div className="col text-center mt-2 mb-5">
                       <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}/>
                     </div>
                 </div>
+
                 <div className="row">
+                    {/* DJ Track Controls */}
                     <div className="col px-md-3">
                         <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)} />
                     </div>
+
+                    {/* Strudel REPL */}
                     <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <div id="editor" />
                         <div id="output" />
                     </div>
                 </div>
                 <br/>
+
+                {/* Preprocessed Text area */}
                 <div className="row text-center">
                     <div className="col mx-md-5" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
                     </div>
-
                 </div>
             </div>
             <canvas id="roll"></canvas>

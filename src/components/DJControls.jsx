@@ -1,10 +1,13 @@
 function DJControls({ volume, onVolumeChange, cpm, onCpmChange}) {
     return (
         <>
+            {/* list group structure */}
             <ul className="list-group">
                 <li className="list-group-item list-group-item-info text-center">
                     <h5>DJ Control Panel</h5>
                 </li>
+
+                {/* track speed text input */}
                 <li className="list-group-item list-group-item-dark">
                     <p>Track Speed</p>
                     <div className="input-group mb-3">
@@ -12,10 +15,14 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange}) {
                         <input type="text" className="form-control" onBlur={onCpmChange} id="cpm_text_input"placeholder="120" aria-label="cpm" aria-describedby="cdpm_label"/>
                     </div>
                 </li>
+
+                {/* track volume range slider */}
                 <li className="list-group-item list-group-item-dark">
                     <label htmlFor="volume_range" className="form-label">Track Volume</label>
                     <input type="range" className="form-range" min="0" max="2" step="0.01" onMouseUp={onVolumeChange} id="volume_range"/>
                 </li>
+
+                {/* instrument hush check boxes */}
                 <li className="list-group-item list-group-item-dark">
                     <p>Instrument Hush</p>
                     <div className="form-check">
