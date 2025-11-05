@@ -8,7 +8,7 @@ export function Preprocess ({ inputText, volume, cpm, pattern, bass}) {
     // replace speed control tag with input value
     outputText = outputText.replaceAll("{$CPM}", cpm)
 
-    // replace gain pattern control tag with input value
+    // replace gain & drum pattern control tag with input value
     outputText = outputText.replaceAll("{$PATTERN}", pattern)
 
     // replace bass line control tag with input value

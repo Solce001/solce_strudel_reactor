@@ -41,7 +41,7 @@ export default function StrudelDemo() {
     
     const [cpm, setCpm] = useState(120); // react hook defining the CPM
 
-    const [pattern, setPattern] = useState("0") // react hook setting the gain pattern
+    const [pattern, setPattern] = useState("0") // react hook setting the gain & drum pattern
 
     const [bass, setBass] = useState("0") // react hook setting the bass
 

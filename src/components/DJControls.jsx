@@ -22,9 +22,9 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
                     <input type="range" className="form-range" min="0" max="2" step="0.01" onMouseUp={onVolumeChange} id="volume_range"/>
                 </li>
 
-                {/* track gain pattern dropdown */}
+                {/* track gain & drum pattern dropdown */}
                 {/*<li className="list-group-item list-group-item-dark">
-                    <p>Gain Pattern</p>
+                    <p>Gain & Drum Pattern</p>
                     <div className="dropdown">
                         <button className="btn btn-secondary dropdown-toggle" onChange={onPatternChange} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Dropdown button
@@ -37,9 +37,9 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
                     </div>
                 </li> */}
 
-                {/* track gain pattern radio buttons */}
+                {/* track gain & drum pattern radio buttons */}
                 <li className="list-group-item list-group-item-dark">
-                    <p>Gain Pattern</p>
+                    <p>Gain & Drum Pattern</p>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="radioPattern" id="0" value="0" checked={pattern === "0"} onChange={onPatternChange}/>
                         <label class="form-check-label" htmlFor="0">
