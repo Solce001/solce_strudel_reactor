@@ -3,7 +3,7 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange}) {
         <>
             <div className="input-group mb-3">
                 <span className="input-group-text" id="cpm_label">setCPm</span>
-                <input type="text" className="form-control" onChange={onCpmChange} id="cpm_text_input"placeholder="120" aria-label="cpm" aria-describedby="cdpm_label"/>
+                <input type="text" className="form-control" onBlur={onCpmChange} id="cpm_text_input"placeholder="120" aria-label="cpm" aria-describedby="cdpm_label"/>
             </div>
 
             <label htmlFor="volume_range" className="form-label">Volume</label>
