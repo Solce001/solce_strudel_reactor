@@ -153,29 +153,42 @@ return (
     <>
     <div>  
         <main>
-            <Navbar/>
-            <div className="row text-center p-4">
+            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <div className="container-fluid">
+                    <a className="navbar-brand" >Strudel Demo</a>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" >Demo</a>
+                            </li>
+                            <li className="nav-item">
+                            <a className="nav-link disabled" aria-disabled="true">Graph (coming soon)</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div className="row text-center mt-4 mb-2">
                 <h2>Strudel Demo</h2>
             </div>
             <div className="container-fluid ">
                 <div className="row">
-                    <div className="col-md-6 text-center">
-                        <nav>
-                            {/* <ProcButtons onProc={handleProc} onProcPlay={handleProcPlay}/> */}
-                            <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}/>
-                        </nav>
-                    </div>
-                    <div className="col-md-6">
-                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)} />
+                    <div className="col text-center mt-2 mb-5">
+                      <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}/>
                     </div>
                 </div>
-                <br/>
                 <div className="row">
-                    <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                    <div className="col px-md-3">
+                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)} />
+                    </div>
+                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <div id="editor" />
                         <div id="output" />
                     </div>
-                    <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                </div>
+                <br/>
+                <div className="row text-center">
+                    <div className="col mx-md-5" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
                     </div>
 
