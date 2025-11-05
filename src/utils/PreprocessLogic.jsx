@@ -1,4 +1,4 @@
-export function Preprocess ({ inputText, volume, cpm, pattern}) {
+export function Preprocess ({ inputText, volume, cpm, pattern, bass}) {
 
     let outputText = inputText
     
@@ -11,6 +11,8 @@ export function Preprocess ({ inputText, volume, cpm, pattern}) {
     // replace gain pattern control tag with input value
     outputText = outputText.replaceAll("{$PATTERN}", pattern)
 
+    // replace bass line control tag with input value
+    outputText = outputText.replaceAll("{$BASS}", bass)
 
     return outputText
 }

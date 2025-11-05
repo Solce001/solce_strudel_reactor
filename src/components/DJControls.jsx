@@ -1,4 +1,4 @@
-function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatternChange}) {
+function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatternChange, bass, onBassChange}) {
     return (
         <>
             {/* list group structure */}
@@ -37,6 +37,7 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
                     </div>
                 </li> */}
 
+                {/* track gain pattern radio buttons */}
                 <li className="list-group-item list-group-item-dark">
                     <p>Gain Pattern</p>
                     <div class="form-check">
@@ -55,6 +56,23 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
                         <input class="form-check-input" type="radio" name="radioPattern" id="2" value="2" checked={pattern === "2"} onChange={onPatternChange}/>
                         <label class="form-check-label" htmlFor="2">
                             Pattern #3
+                        </label>
+                    </div>
+                </li> 
+
+                {/* bass line  radio buttons */}
+                <li className="list-group-item list-group-item-dark">
+                    <p>Bass Line</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bass" id="0" value="0" checked={bass === "0"} onChange={onBassChange}/>
+                        <label class="form-check-label" htmlFor="0">
+                            Bass #1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="bass" id="1" value="1" checked={bass === "1"} onChange={onBassChange}/>
+                        <label class="form-check-label" htmlFor="1">
+                            Bass #2
                         </label>
                     </div>
                 </li> 
