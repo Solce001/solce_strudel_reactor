@@ -2,7 +2,7 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange}) {
     return (
         <>
             <ul className="list-group">
-                <li className="list-group-item list-group-item-dark text-center">
+                <li className="list-group-item list-group-item-info text-center">
                     <h5>DJ Control Panel</h5>
                 </li>
                 <li className="list-group-item list-group-item-dark">
