@@ -26,7 +26,7 @@ export default function StrudelDemo() {
     const hasRun = useRef(false);
 
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm }); // passes song text and user input props to Preprocess component
+        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm, pattern: pattern }); // passes song text and user input props to Preprocess component
         globalEditor.setCode(outputText); // updates REPL with processed song text
         globalEditor.evaluate() // runs the song
     }
@@ -41,13 +41,15 @@ export default function StrudelDemo() {
     
     const [cpm, setCpm] = useState(120); // react hook defining the CPM
 
+    const [pattern, setPattern] = useState(0) // react hook setting the gain pattern
+
     const [state, setState] = useState("stop"); // react hook describing whether the song is currently playing or not
 
     useEffect(() => { // useEffect hook to run at render and when state hook changes
         if (state === "play") {
             handlePlay(); // when state changes to play, run handlePlay function to preprocess and run the song
         }
-    }, [volume, cpm]) // dependency array specifies useEffect should run when volume or cpm are changed
+    }, [volume, cpm, pattern]) // dependency array specifies useEffect should run when volume or cpm are changed
 
 
 useEffect(() => {
@@ -127,7 +129,9 @@ return (
                 <div className="row">
                     {/* DJ Track Controls */}
                     <div className="col px-md-3">
-                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)} />
+                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
+                        cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)}
+                        pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} />
                     </div>
 
                     {/* Strudel REPL */}

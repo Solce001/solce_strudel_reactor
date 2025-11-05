@@ -1,4 +1,4 @@
-function DJControls({ volume, onVolumeChange, cpm, onCpmChange}) {
+function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatternChange}) {
     return (
         <>
             {/* list group structure */}
@@ -12,7 +12,7 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange}) {
                     <p>Track Speed</p>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="cpm_label">CPM</span>
-                        <input type="text" className="form-control" onBlur={onCpmChange} id="cpm_text_input"placeholder="120" aria-label="cpm" aria-describedby="cdpm_label"/>
+                        <input type="text" className="form-control" onBlur={onCpmChange} id="cpm_text_input" placeholder="120" aria-label="cpm" aria-describedby="cdpm_label"/>
                     </div>
                 </li>
 
@@ -21,6 +21,43 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange}) {
                     <label htmlFor="volume_range" className="form-label">Track Volume</label>
                     <input type="range" className="form-range" min="0" max="2" step="0.01" onMouseUp={onVolumeChange} id="volume_range"/>
                 </li>
+
+                {/* track gain pattern dropdown */}
+                {/*<li className="list-group-item list-group-item-dark">
+                    <p>Gain Pattern</p>
+                    <div className="dropdown">
+                        <button className="btn btn-secondary dropdown-toggle" onChange={onPatternChange} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown button
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li><a className="dropdown-item" href="1">Pattern 1</a></li>
+                            <li><a className="dropdown-item" href="2">Pattern 2</a></li>
+                            <li><a className="dropdown-item" href="3">Pattern 3</a></li>
+                        </ul>
+                    </div>
+                </li> */}
+
+                <li className="list-group-item list-group-item-dark">
+                    <p>Gain Pattern</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radioPattern" id="0" value="0" checked={pattern === "0"} onChange={onPatternChange}/>
+                        <label class="form-check-label" htmlFor="0">
+                            Pattern #1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radioPattern" id="1" value="1" checked={pattern === "1"} onChange={onPatternChange}/>
+                        <label class="form-check-label" htmlFor="1">
+                            Pattern #2
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radioPattern" id="2" value="2" checked={pattern === "2"} onChange={onPatternChange}/>
+                        <label class="form-check-label" htmlFor="2">
+                            Pattern #3
+                        </label>
+                    </div>
+                </li> 
 
                 {/* instrument hush check boxes */}
                 <li className="list-group-item list-group-item-dark">
