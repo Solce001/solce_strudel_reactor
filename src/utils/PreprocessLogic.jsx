@@ -29,4 +29,3 @@ export function Preprocess ({ inputText, volume, cpm, pattern, bass, muteList}) 
 
     return outputText
 }
-
