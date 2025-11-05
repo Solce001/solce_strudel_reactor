@@ -14,6 +14,7 @@ import PlayButtons from './components/PlayButtons';
 import ProcButtons from './components/ProcButtons';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
+import { Navbar } from './components/Navbar';
 
 let globalEditor = null;
 
@@ -149,35 +150,41 @@ useEffect(() => {
 
 
 return (
-    <div>
-        <h2>Strudel Demo</h2>
+    <>
+    <div>  
         <main>
-            <div className="container-fluid">
+            <Navbar/>
+            <div className="row text-center p-4">
+                <h2>Strudel Demo</h2>
+            </div>
+            <div className="container-fluid ">
                 <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
-                    </div>
-                    <div className="col-md-4">
+                    <div className="col-md-6 text-center">
                         <nav>
                             {/* <ProcButtons onProc={handleProc} onProcPlay={handleProcPlay}/> */}
-                            <br />
                             <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}/>
                         </nav>
                     </div>
+                    <div className="col-md-6">
+                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)} />
+                    </div>
                 </div>
+                <br/>
                 <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                    <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <div id="editor" />
                         <div id="output" />
                     </div>
-                    <div className="col-md-4">
-                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)} cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)} />
+                    <div className="col-md-6" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                        <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
                     </div>
+
                 </div>
             </div>
             <canvas id="roll"></canvas>
         </main >
     </div >
+    </>
 );
 
 
