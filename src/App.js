@@ -13,6 +13,7 @@ import DJControls from './components/DJControls';
 import PlayButtons from './components/PlayButtons';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
+import TrackCard from './components/TrackCard';
 
 let globalEditor = null;
 
@@ -158,15 +159,23 @@ return (
                 <br/>
 
                 <div className="row text-center">
+                    {/* Track Info Card */}
+                    <div className="col px-md-3">
+                        <TrackCard/>
+                    </div>
+
                     {/* Preprocessed Text area */}
-                    <div className="col mx-md-3" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                         <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
                     </div>
+                </div>
+
+               <div className="row">
                     {/* Canvas visualiser */}
-                    <div className="col mx-md-3">
+                    <div className="col mx-md-1">
                         <canvas id="roll"></canvas>
                     </div>
-                </div>
+                </div> 
             </div>
         </main >
     </div >
