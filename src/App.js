@@ -13,6 +13,8 @@ import DJControls from './components/DJControls';
 import PlayButtons from './components/PlayButtons';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
+import { ThemeLogic } from './utils/ThemeLogic';
+import ThemeSwitch from './components/ThemeSwitch';
 
 let globalEditor = null;
 
@@ -42,8 +44,14 @@ export default function StrudelDemo() {
         : [...prev, instrument] 
     ) };
 
+    const handleThemeChange = () => {
+        ThemeLogic({theme: theme});
+    }
+
     // React useState hooks
     const [procText, setProcText] = useState(stranger_tune) // react hook to set the state of processed text
+
+    const [theme, setTheme] = useState("dark") // react hook setting the colour theme state
 
     const [volume, setVolume] = useState(1); // react hook to set the volume state
     
@@ -135,6 +143,12 @@ return (
                 <div className="row">
                     <div className="col text-center mt-2 mb-5">
                       <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}/>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col mt-2 mb-5">
+                      <ThemeSwitch onThemeChange={() => { setTheme("dark"); handleThemeChange() }}/>
                     </div>
                 </div>
 
