@@ -139,33 +139,39 @@ return (
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="d-flex justify-content-center">
                     {/* DJ Track Controls */}
-                    <div className="col px-md-3" style={{maxWidth: '50vh', overflowY: 'auto' }}>
+                    <div className="col-px-2" style={{maxWidth: '50vh', overflowY: 'auto' }}>
                         <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
                         cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)}
                         pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
                         bass={bass} onBassChange={(e) => setBass(e.target.value)}
                         muteList={muteList} onMuteChange={(handleMuteChange)} />
                     </div>
-
+                    <div className="col-1"></div>
                     {/* Strudel REPL */}
-                    <div className="col-md-8" style={{ maxHeight: '50vh', maxWidth: '50vh', overflowY: 'auto' }}>
+                    <div className="col-6" style={{ maxHeight: '64vh', overflowY: 'auto' }}>
                         <div id="editor" />
                         <div id="output" />
                     </div>
                 </div>
                 <br/>
 
-                <div className="row text-center">
-                    {/* Preprocessed Text area */}
-                    <div className="col mx-md-3" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
-                    </div>
+                <div className="d-flex justify-content-center">
+                    <div className="col-1"></div>
+
                     {/* Canvas visualiser */}
-                    <div className="col mx-md-3">
+                    <div className="col-4">
                         <canvas id="roll"></canvas>
                     </div>
+
+                    <div className="col-1"></div>
+
+                    {/* Preprocessed Text area */}
+                    <div className="col-4" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                        <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
+                    </div>
+
                 </div>
             </div>
         </main >
