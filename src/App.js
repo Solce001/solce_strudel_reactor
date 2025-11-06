@@ -141,7 +141,7 @@ return (
 
                 <div className="row">
                     {/* DJ Track Controls */}
-                    <div className="col px-md-3">
+                    <div className="col px-md-3" style={{maxWidth: '50vh', overflowY: 'auto' }}>
                         <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
                         cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)}
                         pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
@@ -150,7 +150,7 @@ return (
                     </div>
 
                     {/* Strudel REPL */}
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                    <div className="col-md-8" style={{ maxHeight: '50vh', maxWidth: '50vh', overflowY: 'auto' }}>
                         <div id="editor" />
                         <div id="output" />
                     </div>
