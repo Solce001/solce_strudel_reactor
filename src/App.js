@@ -127,7 +127,8 @@ return (
 
             {/* heading */}
             <div className="row text-center mt-4 mb-2">
-                <h2>Strudel Demo</h2>
+                <h2 className="display-3">Strudel Demo</h2>
+                <blockquote className="blockquote"><p>Currently cooking up a track remixed and reproduced from Algorave Dave.</p></blockquote>
             </div>
 
             <div className="container-fluid ">

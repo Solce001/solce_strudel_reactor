@@ -4,12 +4,12 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
             {/* list group structure */}
             <ul className="list-group">
                 <li className="list-group-item list-group-item-info text-center">
-                    <h5>DJ Control Panel</h5>
+                    <h5 className="display-6">DJ Control Panel</h5>
                 </li>
 
                 {/* track speed text input */}
                 <li className="list-group-item list-group-item-dark">
-                    <p>Track Speed</p>
+                    <p><strong>Track Speed</strong></p>
                     <div className="input-group mb-3">
                         <span className="input-group-text" id="cpm_label">CPM</span>
                         <input type="text" className="form-control" onBlur={onCpmChange} id="cpm_text_input" placeholder="120"/>
@@ -18,13 +18,13 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
 
                 {/* track volume range slider */}
                 <li className="list-group-item list-group-item-dark">
-                    <label htmlFor="volume_range" className="form-label">Track Volume</label>
+                    <label htmlFor="volume_range" className="form-label"><strong>Track Volume</strong></label>
                     <input type="range" className="form-range" min="0" max="2" step="0.01" onMouseUp={onVolumeChange} id="volume_range"/>
                 </li>
 
                 {/* track gain & drum pattern select menu */}
                 <li className="list-group-item list-group-item-dark">
-                    <p>Gain & Drum Patterns</p>
+                    <p><strong>Gain & Drum Patterns</strong></p>
                     <select class="form-select" value={pattern} onChange={onPatternChange}>
                        <option value="0" >Pattern #1 (Simple)</option>
                         <option value="1" >Pattern #2 (Varied)</option>
@@ -34,7 +34,7 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
 
                 {/* bass line radio buttons */}
                 <li className="list-group-item list-group-item-dark">
-                    <p>Bass Line Options</p>
+                    <p><strong>Bass Line Options</strong></p>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="bass" id="0" value="0" checked={bass === "0"} onChange={onBassChange}/>
                         <label class="form-check-label" htmlFor="0">
@@ -51,7 +51,7 @@ function DJControls({ volume, onVolumeChange, cpm, onCpmChange, pattern, onPatte
 
                 {/* instrument hush check boxes */}
                 <li className="list-group-item list-group-item-dark">
-                    <p>Instrument Mute</p>
+                    <p><strong>Instrument Mute</strong></p>
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" value="B1" id="B1" checked={muteList.includes("B1")} onChange={onMuteChange}/>
                         <label className="form-check-label" htmlFor="B1">Bassline</label>
