@@ -132,18 +132,13 @@ return (
             </div>
 
             <div className="container-fluid ">
-                {/* play/pause button */}
-                <div className="row">
-                    <div className="col text-center mt-2 mb-5">
-                      <PlayButtons onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}/>
-                    </div>
-                </div>
 
                 <div className="d-flex justify-content-center">
                     {/* DJ Track Controls */}
                     <div className="col-px-2" style={{maxWidth: '50vh', overflowY: 'auto' }}>
-                        <DJControls volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
+                        <DJControls onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}
                         cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)}
+                        volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
                         pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
                         bass={bass} onBassChange={(e) => setBass(e.target.value)}
                         muteList={muteList} onMuteChange={(handleMuteChange)} />
