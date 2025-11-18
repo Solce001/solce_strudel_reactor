@@ -3,7 +3,7 @@ import CpmTextInput from "./DJControls/CpmTextInput";
 import MuteChecks from "./DJControls/MuteChecks";
 import PatternSelect from "./DJControls/PatternSelect";
 import VolumeRange from "./DJControls/VolumeRange";
-import PlayButtons from "./PlayButtons";
+import PlayButtons from "./DJControls/PlayButtons";
 
 function DJControls({ onPlay, onStop, volume, onVolumeChange, cpm, onCpmChange, pattern, onPatternChange, bass, onBassChange, muteList, onMuteChange}) {
     return (
@@ -36,13 +36,13 @@ function DJControls({ onPlay, onStop, volume, onVolumeChange, cpm, onCpmChange, 
 
                 {/* track gain & drum pattern select menu */}
                 <li className="list-group-item list-group-item-action list-group-item-dark">
-                    <p><strong>Gain & Drum Patterns</strong></p>
+                    <p><strong>Bass Line Options</strong></p>
                     <BassRadios bassChange={bass} onBassChange={onBassChange}/>
                 </li>
 
                 {/* bass line radio buttons */}
                 <li className="list-group-item list-group-item-action list-group-item-dark">
-                    <p><strong>Bass Line Options</strong></p>
+                    <p><strong>Gain & Drum Patterns</strong></p>
                     <PatternSelect patternChange={pattern} onPatternChange={onPatternChange}/>
                 </li> 
 

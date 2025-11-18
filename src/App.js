@@ -10,7 +10,7 @@ import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import DJControls from './components/DJControls';
-import PlayButtons from './components/PlayButtons';
+import PlayButtons from './components/DJControls/PlayButtons';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
 
