@@ -1,74 +1,47 @@
-## Web Tech - React Assignment
+# DJ Solce's Strudel Player
+Welcome weary marker! Here be another strudel demo.
 
-This assignment was completed by solce001.
+## Wait a minute, where am I?
+Do not fear my friend, you are on GitHub.com. This here repository that you're checking out contains a web-based preprocessor for a live-coding music platform that allows users to compose and manipulate patterns using Strudel.cc bakery code!
 
-# Getting Started with Create React App
+## What do the various controls do?
+- **Play/Pause Buttons** - Starts or stops the music. Yeah!
+- **CPM Range** - Adjusts the cycles per minute between 20 and 300, affecting the tempo of the track.
+- **Volume Slider** - Adjusts the overall volume of the track up and down.
+- **Pattern Selector** - Choose from 1 of 3 pre-mixed gain patterns to spice up your life.
+- **Bass Line Radios** - Choose from 1 of 2 bass lines! The choices!
+- **Mute List** - Toggle mute on individual instruments for full control. This is for the Players.
+- **Load Preset** - Loads a set of previously mixed DJ Control presets from a handy dandy little file in the data folder. Groovy!
+- **Save Preset** - Saves all the DJ Control settings into a neat little JSON file that can then be dropped into the data folder (and renamed) and loaded from so you're back in the action
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## What's quirky that you'd like to highlight about this project?
+- My volume slider dynamically adjusts the total track volume whilst preserving each instruments' balance
+- The CPM input has validation to prevent you from doing crazy things, like entering letters or nothing.
+- While we're on it, the CPM input also very neatly only updates when you click off the input (rather than updating with every. single. keystroke.)
+- The whole thing is in dark mode, pretty nice right? Right??
+- Admittedly, some controls and inputs seem like a bit of a funky pairing. I hear ya. I agree! But you can't lie that it demonstrates a great range of my boostrap and react mastery (and this is an assessable piece, so the rubric reigns supreme)
 
-In the project directory, you can run:
+## Can I see a live demo video?
+I thought you'd never ask:
+
+## Wow, that was fantastic! I would love to give you so many bonus points!
+Thank you, thank you kindly. For my humble work I'd appreciate a few bonus points for bringing some enthusiasm to the table.
+
+## DJ Solce, those are some gnarly beats. Where can I hear more?
+Right where the rightful owners share their work. Song code is Overlord Mark's remix of a track by Algorave Dave found here: https://www.youtube.com/watch?v=ZCcpWzhekEY
+
+## I've forgotten where I am again. What scripts do I need to run this thing?
+
+### `npm install`
+
+Intalls the required packages.
+
+### `d3 install`
+
+Intalls d3 (if not already installed in required pacakges).
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

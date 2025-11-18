@@ -16,7 +16,7 @@ function LogToNum(input) {
     return 0;
 }
 
-export function Graph({ data }) {
+export function Graph({ }) {
     const [rngArray, setRngArray] = useState([]);
     const maxValue = 1;
 
