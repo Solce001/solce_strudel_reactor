@@ -1,6 +1,7 @@
-function CpmTextInput({ cpmChange, onCpmChange}) {
+import config from '../../data/config.json'
 
-        
+function CpmTextInput({ cpmChange, onCpmChange}) {
+   
     const handleValidation = (e) => {
 
         // cast text input to a Number, define min and max CPM values
@@ -29,7 +30,7 @@ function CpmTextInput({ cpmChange, onCpmChange}) {
         <>
             <div className="input-group mb-3">
                 <span className="input-group-text" id="cpm_label">CPM</span>
-                <input type="text" className="form-control" onBlur={handleValidation} id="cpm_text_input" value={cpmChange} placeholder="120"/>
+                <input type="text" className="form-control" onBlur={handleValidation} id="cpm_text_input" value={cpmChange} placeholder={config.cpm}/>
             </div>
         </>
     )

@@ -1,0 +1,11 @@
+{
+    "theme" : "dark",
+    "theme2" : "light",
+    "One" : "Hi",
+    "Two" : "Bye",
+    "cpm" : 90,
+    "volume" : 0.5,
+    "bass" : 1,
+    "pattern" : 3,
+    "muteList" : []
+}

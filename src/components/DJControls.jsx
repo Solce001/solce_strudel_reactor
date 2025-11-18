@@ -4,8 +4,9 @@ import MuteChecks from "./DJControls/MuteChecks";
 import PatternSelect from "./DJControls/PatternSelect";
 import VolumeRange from "./DJControls/VolumeRange";
 import PlayButtons from "./DJControls/PlayButtons";
+import PresetButtons from "./DJControls/PresetButtons";
 
-function DJControls({ onPlay, onStop, volume, onVolumeChange, cpm, onCpmChange, pattern, onPatternChange, bass, onBassChange, muteList, onMuteChange}) {
+function DJControls({ onPlay, onStop, volume, onVolumeChange, cpm, onCpmChange, pattern, onPatternChange, bass, onBassChange, muteList, onMuteChange, onLoadPreset, onSavePreset}) {
     return (
         <>
             {/* list group structure */}
@@ -50,6 +51,15 @@ function DJControls({ onPlay, onStop, volume, onVolumeChange, cpm, onCpmChange, 
                 <li className="list-group-item list-group-item-action list-group-item-dark">
                     <p><strong>Instrument Mute</strong></p>
                     <MuteChecks muteList={muteList} onMuteChange={onMuteChange}/>
+                </li>
+
+                {/* present save/load buttons */}
+                <li className="list-group-item list-group-item-action list-group-item-dark">
+                    <br/>
+                        <div className="row">
+                            <PresetButtons onLoadPreset={onLoadPreset} onSavePreset={onSavePreset}/>
+                        </div>
+                    <br/>
                 </li>
             </ul>
         </>

@@ -10,9 +10,11 @@ import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import DJControls from './components/DJControls';
-import PlayButtons from './components/DJControls/PlayButtons';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
+import config from './data/config.json'
+
+let preset = config;
 
 let globalEditor = null;
 
@@ -41,6 +43,25 @@ export default function StrudelDemo() {
         ? prev.filter(i => i !== instrument)
         : [...prev, instrument] 
     ) };
+
+    const handleLoadPreset = () => {
+        setCpm(preset.cpm);
+        setVolume(preset.volume);
+        setBass(preset.bass);
+        setPattern(preset.pattern);
+        setMuteList(preset.muteList);
+    }
+
+    const handleSavePreset = () => {
+        const preset = {
+        volume,
+        cpm,
+        pattern,
+        bass,
+        muteList
+        };
+
+    }
 
     // React useState hooks
     const [procText, setProcText] = useState(stranger_tune) // react hook to set the state of processed text
@@ -136,12 +157,14 @@ return (
                 <div className="d-flex justify-content-center">
                     {/* DJ Track Controls */}
                     <div className="col-px-2" style={{maxWidth: '50vh', overflowY: 'auto' }}>
-                        <DJControls onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}
+                        <DJControls
+                        onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}
                         cpmChange={cpm} onCpmChange={(e) => setCpm(Number(e.target.value))}
                         volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
                         pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
                         bass={bass} onBassChange={(e) => setBass(e.target.value)}
-                        muteList={muteList} onMuteChange={(handleMuteChange)} />
+                        muteList={muteList} onMuteChange={(handleMuteChange)}
+                        onLoadPreset={handleLoadPreset} onSavePreset={handleSavePreset}/>
                     </div>
                     <div className="col-1"></div>
                     {/* Strudel REPL */}
