@@ -13,6 +13,7 @@ import DJControls from './components/DJControls';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
 import preset from './data/preset.json'
+import Graph from './components/D3Visualiser';
 
 
 let globalEditor = null;
@@ -178,13 +179,20 @@ export default function StrudelDemo() {
                             />
                         </div>
                         <div className="col-1"></div>
+                        {/*D3 Graph Visualiser*/}
+                        <div className="col-6" >
+                            <Graph></Graph>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div className="d-flex justify-content-center">
                         {/* Strudel REPL */}
                         <div className="col-6" style={{ maxHeight: '64vh', overflowY: 'auto' }}>
                             <div id="editor" />
                             <div id="output" />
                         </div>
                     </div>
-                    <br/>
 
                     <div className="d-flex justify-content-center">
                         <div className="col-1"></div>
