@@ -23,10 +23,14 @@ Do not fear my friend, you are on GitHub.com. This here repository that you're c
 - Admittedly, some controls and inputs seem like a bit of a funky pairing. I hear ya. I agree! But you can't lie that it demonstrates a great range of my boostrap and react mastery (and this is an assessable piece, so the rubric reigns supreme)
 
 ## Can I see a live demo video?
-I thought you'd never ask:
+I thought you'd never ask: https://youtu.be/32sx49sS4DY
 
 ## Wow, that was fantastic! I would love to give you so many bonus points!
-Thank you, thank you kindly. For my humble work I'd appreciate a few bonus points for bringing some enthusiasm to the table.
+Thank you, thank you kindly. For my humble work I'd appreciate a few bonus points for bringing some enthusiasm and spunk to the table. 
+- 3 points for the comedic editing
+- 1 point for the great personality and riveting commentary throughout
+- 1 point for the sick beats
+- 1 point for the glasses?
 
 ## DJ Solce, those are some gnarly beats. Where can I hear more?
 Right where the rightful owners share their work. Song code is Overlord Mark's remix of a track by Algorave Dave found here: https://www.youtube.com/watch?v=ZCcpWzhekEY
