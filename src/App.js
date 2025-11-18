@@ -179,19 +179,17 @@ export default function StrudelDemo() {
                             />
                         </div>
                         <div className="col-1"></div>
-                        {/*D3 Graph Visualiser*/}
-                        <div className="col-6" >
-                            <Graph></Graph>
-                        </div>
-                    </div>
-                    <br/>
-
-                    <div className="d-flex justify-content-center">
                         {/* Strudel REPL */}
                         <div className="col-6" style={{ maxHeight: '64vh', overflowY: 'auto' }}>
                             <div id="editor" />
                             <div id="output" />
                         </div>
+                    </div>
+                    <br/>
+
+                    <div className="d-flex justify-content-center">
+                        {/*D3 Graph Visualiser*/}
+                         <Graph></Graph>
                     </div>
 
                     <div className="d-flex justify-content-center">
