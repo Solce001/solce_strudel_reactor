@@ -2,12 +2,12 @@ export function Preprocess ({ inputText, volume, cpm, pattern, bass, muteList}) 
 
     let outputText = inputText
     
-    // replace volume control tag with input value
-    outputText = outputText.replaceAll("{$VOLUME}", volume)
-    
     // replace speed control tag with input value
     outputText = outputText.replaceAll("{$CPM}", cpm)
 
+    // replace volume control tag with input value
+    outputText = outputText.replaceAll("{$VOLUME}", volume)
+    
     // replace gain & drum pattern control tag with input value
     outputText = outputText.replaceAll("{$PATTERN}", pattern)
 

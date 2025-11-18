@@ -26,188 +26,180 @@ export default function StrudelDemo() {
 
     const hasRun = useRef(false);
 
+    // State hooks
+    const [procText, setProcText] = useState(stranger_tune) 
+    const [cpm, setCpm] = useState(120);
+    const [volume, setVolume] = useState(1);
+    const [pattern, setPattern] = useState("0") 
+    const [bass, setBass] = useState("0") 
+    const [muteList, setMuteList] = useState([]); 
+    const [state, setState] = useState("stop");
+
+    // Handler functions
     const handlePlay = () => {
-        let outputText = Preprocess({ inputText: procText, volume: volume, cpm: cpm, pattern: pattern, bass: bass, muteList: muteList}); // passes song text and user input props to Preprocess component
-        globalEditor.setCode(outputText); // updates REPL with processed song text
-        globalEditor.evaluate() // runs the song
+        // Preprocess the song text with current DJ control presets and run REPL
+        let outputText = Preprocess({ inputText: procText, cpm: cpm, volume: volume, pattern: pattern, bass: bass, muteList: muteList});
+        globalEditor.setCode(outputText);
+        globalEditor.evaluate()
     }
 
     const handleStop = () => {
-        globalEditor.stop() // stops the REPL's currently playing song
+        // Stop the song from playing
+        globalEditor.stop()
     }
 
     const handleMuteChange = (e) => {
-    const instrument = e.target.value;
-    setMuteList(prev => prev.includes(instrument)
-        ? prev.filter(i => i !== instrument)
-        : [...prev, instrument] 
-    ) };
+        // Toggle instruments in the mute list depending on if their already muted or not
+        const instrument = e.target.value;
+        setMuteList(prev => prev.includes(instrument)
+            ? prev.filter(i => i !== instrument)
+            : [...prev, instrument] 
+        )
+    };
 
     const handleLoadPreset = () => {
+        // Load saved presets into state
         setCpm(preset.cpm);
         setVolume(preset.volume);
-        setBass(preset.bass);
         setPattern(preset.pattern);
+        setBass(preset.bass);
         setMuteList(preset.muteList);
     }
 
     const handleSavePreset = () => {
-        // grab current preset values
+        // Grab current preset values
         const presets = {
-        volume,
         cpm,
+        volume,
         pattern,
         bass,
         muteList
         };
 
-        // convert presets object into JSON file and create a temp url
+        // Convert presets object into JSON file and create temporary URL
         const data = new Blob([JSON.stringify(presets, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(data);
         
-        // create temporary anchor element to trigger donload
+        // Create temporary anchor element to trigger download
         const link = document.createElement("a");
         link.href = url;
         link.download = "exportedPresets.json";
         link.click();
 
-        // dump URL after download to free up memory
+        // Free up memory
         URL.revokeObjectURL(url);
     }
 
-    // React useState hooks
-    const [procText, setProcText] = useState(stranger_tune) // react hook to set the state of processed text
-
-    const [volume, setVolume] = useState(1); // react hook to set the volume state
-    
-    const [cpm, setCpm] = useState(120); // react hook defining the CPM
-
-    const [pattern, setPattern] = useState("0") // react hook setting the gain & drum pattern
-
-    const [bass, setBass] = useState("0") // react hook setting the bass
-
-    const [muteList, setMuteList] = useState([]); // react hook creating an empty list to store references to instruments to be muted in preprocessing
-
-    const [state, setState] = useState("stop"); // react hook describing whether the song is currently playing or not
-
-    useEffect(() => { // useEffect hook to run at render and when state hook changes
+    // Effects
+    useEffect(() => { 
+        // Run song when relevant state changes
         if (state === "play") {
-            handlePlay(); // when state changes to play, run handlePlay function to preprocess and run the song
+            handlePlay();
         }
-    }, [volume, cpm, pattern, bass, muteList]) // dependency array specifies useEffect should run when volume or cpm are changed
+    }, [cpm, volume, pattern, bass, muteList])
 
+    useEffect(() => {
+        // Initialise Strudel REPL and canvas on first app render
+        if (!hasRun.current) {
+            document.addEventListener("d3Data", handleD3Data);
+            console_monkey_patch();
+            hasRun.current = true;
 
-useEffect(() => {
+            //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
+                //Initialise canvas
+                const canvas = document.getElementById('roll');
+                canvas.width = canvas.width * 2;
+                canvas.height = canvas.height * 2;
+                const drawContext = canvas.getContext('2d');
+                const drawTime = [-2, 2]; // time window of drawn haps
 
-    if (!hasRun.current) {
-        document.addEventListener("d3Data", handleD3Data);
-        console_monkey_patch();
-        hasRun.current = true;
-        //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
-            //init canvas
-            const canvas = document.getElementById('roll');
-            canvas.width = canvas.width * 2;
-            canvas.height = canvas.height * 2;
-            const drawContext = canvas.getContext('2d');
-            const drawTime = [-2, 2]; // time window of drawn haps
-            globalEditor = new StrudelMirror({
-                defaultOutput: webaudioOutput,
-                getTime: () => getAudioContext().currentTime,
-                transpiler,
-                root: document.getElementById('editor'),
-                drawTime,
-                onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
-                prebake: async () => {
-                    initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
-                    const loadModules = evalScope(
-                        import('@strudel/core'),
-                        import('@strudel/draw'),
-                        import('@strudel/mini'),
-                        import('@strudel/tonal'),
-                        import('@strudel/webaudio'),
-                    );
-                    await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
-                },
-            });
-            
-        document.getElementById('proc').value = procText // gets the song in the text box and stores the value
-        globalEditor.setCode(procText); // runs initial text in procText when app is first rendered
-    }
-}, [procText]); // dependency array specifies useEffect should run when procText is changed
+                // Initialise Strudel REPL
+                globalEditor = new StrudelMirror({
+                    defaultOutput: webaudioOutput,
+                    getTime: () => getAudioContext().currentTime,
+                    transpiler,
+                    root: document.getElementById('editor'),
+                    drawTime,
+                    onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
+                    prebake: async () => {
+                        initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
+                        const loadModules = evalScope(
+                            import('@strudel/core'),
+                            import('@strudel/draw'),
+                            import('@strudel/mini'),
+                            import('@strudel/tonal'),
+                            import('@strudel/webaudio'),
+                        );
+                        await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
+                    },
+                });
+                
+            // Set initial song text
+            document.getElementById('proc').value = procText
+            globalEditor.setCode(procText);
+        }
+    }, [procText]);
 
+    return (
+        <div>  
+            <main>
+                {/* Header */}
+                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                    <div className="container-fluid">
+                        <a className="navbar-brand" >Strudel Demo</a>
+                        <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item"><a className="nav-link active" aria-current="page" >Demo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
-return (
-    <>
-    <div>  
-        <main>
+                {/* Title & description */}
+                <div className="row text-center mt-4 mb-2">
+                    <h2 className="display-3">Strudel Demo</h2>
+                    <blockquote className="blockquote">
+                        <p>Currently cooking up a track remixed and reproduced from Algorave Dave.</p>
+                    </blockquote>
+                </div>
 
-            {/* header bar */}
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
-                    <a className="navbar-brand" >Strudel Demo</a>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" >Demo</a>
-                            </li>
-                            <li className="nav-item">
-                            <a className="nav-link disabled" aria-disabled="true">Graph (coming soon)</a>
-                            </li>
-                        </ul>
+                <div className="container-fluid ">
+                    <div className="d-flex justify-content-center">
+                        {/* DJ Controls */}
+                        <div className="col-px-2" style={{maxWidth: '50vh', overflowY: 'auto' }}>
+                            <DJControls
+                                onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}
+                                cpmChange={cpm} onCpmChange={(e) => setCpm(Number(e.target.value))}
+                                volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
+                                pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
+                                bass={bass} onBassChange={(e) => setBass(e.target.value)}
+                                muteList={muteList} onMuteChange={(handleMuteChange)}
+                                onLoadPreset={handleLoadPreset} onSavePreset={handleSavePreset}
+                            />
+                        </div>
+                        <div className="col-1"></div>
+                        {/* Strudel REPL */}
+                        <div className="col-6" style={{ maxHeight: '64vh', overflowY: 'auto' }}>
+                            <div id="editor" />
+                            <div id="output" />
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div className="d-flex justify-content-center">
+                        <div className="col-1"></div>
+                        {/* Canvas visualiser */}
+                        <div className="col-4">
+                            <canvas id="roll"></canvas>
+                        </div>
+                        <div className="col-1"></div>
+                        {/* Preprocessed text */}
+                        <div className="col-4" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+                            <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
+                        </div>
                     </div>
                 </div>
-            </nav>
-
-            {/* heading */}
-            <div className="row text-center mt-4 mb-2">
-                <h2 className="display-3">Strudel Demo</h2>
-                <blockquote className="blockquote"><p>Currently cooking up a track remixed and reproduced from Algorave Dave.</p></blockquote>
-            </div>
-
-            <div className="container-fluid ">
-
-                <div className="d-flex justify-content-center">
-                    {/* DJ Track Controls */}
-                    <div className="col-px-2" style={{maxWidth: '50vh', overflowY: 'auto' }}>
-                        <DJControls
-                        onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}
-                        cpmChange={cpm} onCpmChange={(e) => setCpm(Number(e.target.value))}
-                        volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
-                        pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
-                        bass={bass} onBassChange={(e) => setBass(e.target.value)}
-                        muteList={muteList} onMuteChange={(handleMuteChange)}
-                        onLoadPreset={handleLoadPreset} onSavePreset={handleSavePreset}/>
-                    </div>
-                    <div className="col-1"></div>
-                    {/* Strudel REPL */}
-                    <div className="col-6" style={{ maxHeight: '64vh', overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
-                    </div>
-                </div>
-                <br/>
-
-                <div className="d-flex justify-content-center">
-                    <div className="col-1"></div>
-
-                    {/* Canvas visualiser */}
-                    <div className="col-4">
-                        <canvas id="roll"></canvas>
-                    </div>
-
-                    <div className="col-1"></div>
-
-                    {/* Preprocessed Text area */}
-                    <div className="col-4" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <PreprocessTextarea defaultValue={procText} onChange={(e) => setProcText(e.target.value)} />
-                    </div>
-
-                </div>
-            </div>
-        </main >
-    </div >
-    </>
-);
-
-
+            </main >
+        </div >
+    );
 }
