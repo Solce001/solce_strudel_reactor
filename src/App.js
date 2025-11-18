@@ -137,7 +137,7 @@ return (
                     {/* DJ Track Controls */}
                     <div className="col-px-2" style={{maxWidth: '50vh', overflowY: 'auto' }}>
                         <DJControls onPlay={() => { setState("play"); handlePlay() }} onStop={() => { setState("stop"); handleStop() }}
-                        cpmChange={cpm} onCpmChange={(e) => setCpm(e.target.value)}
+                        cpmChange={cpm} onCpmChange={(e) => setCpm(Number(e.target.value))}
                         volumeChange={volume} onVolumeChange={(e) => setVolume(e.target.value)}
                         pattern={pattern} onPatternChange={(e) => setPattern(e.target.value)} 
                         bass={bass} onBassChange={(e) => setBass(e.target.value)}
