@@ -12,9 +12,8 @@ import console_monkey_patch, { getD3Data } from './console-monkey-patch';
 import DJControls from './components/DJControls';
 import PreprocessTextarea from './components/PreprocessTextarea';
 import { Preprocess } from './utils/PreprocessLogic';
-import config from './data/config.json'
+import preset from './data/preset.json'
 
-let preset = config;
 
 let globalEditor = null;
 
@@ -53,7 +52,8 @@ export default function StrudelDemo() {
     }
 
     const handleSavePreset = () => {
-        const preset = {
+        // grab current preset values
+        const presets = {
         volume,
         cpm,
         pattern,
@@ -61,6 +61,18 @@ export default function StrudelDemo() {
         muteList
         };
 
+        // convert presets object into JSON file and create a temp url
+        const data = new Blob([JSON.stringify(presets, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(data);
+        
+        // create temporary anchor element to trigger donload
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "exportedPresets.json";
+        link.click();
+
+        // dump URL after download to free up memory
+        URL.revokeObjectURL(url);
     }
 
     // React useState hooks
